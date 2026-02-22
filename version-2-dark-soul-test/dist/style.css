@@ -501,40 +501,29 @@ body::before {
   background: linear-gradient(135deg, rgba(25,25,25,0.98), rgba(15,15,15,0.98));
   border: 1px solid rgba(255,140,66,0.2);
   border-radius: 8px;
-  /* overflow:hidden retiré — géré par .gallery-slides pour préserver les coins arrondis */
   overflow: visible;
   transition: all 0.4s ease;
   margin-bottom: 3rem;
 }
 .game-card-v2:hover { border-color: rgba(255,140,66,0.5); box-shadow: 0 20px 60px rgba(255,140,66,0.15); }
 
-/* ================================================
-   GALLERY — conteneur principal
-   overflow:visible pour que les boutons débordent
-================================================ */
 .game-gallery {
   position: relative;
   height: clamp(300px, 55vh, 520px);
   background: #0a0a0a;
-  /* overflow:visible = les boutons peuvent sortir du cadre image */
   overflow: visible;
 }
 
-/* ================================================
-   GALLERY SLIDES WRAPPER — clipping des images uniquement
-================================================ */
 .gallery-slides {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: 0; /* hérité par les coins de la card */
+  border-radius: 0;
 }
 
-/* overflow:visible sur les colonnes pour que les boutons nav ne soient pas clippés */
 .mad-left-col { overflow: visible; }
 .sky-right-col { overflow: visible; }
 
-/* Coins arrondis reportés sur les éléments internes */
 .mad-left-col .gallery-slides { border-radius: 7px 0 0 0; }
 .mad-bottom { border-radius: 0 0 0 7px; overflow: hidden; }
 .sky-right-col .gallery-slides { border-radius: 0 7px 0 0; }
@@ -544,7 +533,7 @@ body::before {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  /* Pas de transition CSS ici — le JS gère l'animation de slide */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -562,10 +551,6 @@ body::before {
 }
 .gallery-slide.active img { transform: scale(1.1); }
 
-/* ================================================
-   GALLERY NAV — boutons semi-transparents sur l'image
-   ↓ SEUL BLOC MODIFIÉ (opacité 0.45 + backdrop-filter)
-================================================ */
 .gallery-nav {
   position: absolute;
   top: 50%;
@@ -640,6 +625,11 @@ body::before {
   font-size: 0.8rem; font-weight: 600;
 }
 .forged-badge i { color: var(--bonfire-orange); font-size: 0.75rem; }
+
+/* Variante centrée — utilisée pour les Centres d'intérêt dans À Propos */
+.forged-skills--centered { text-align: center; }
+.forged-skills--centered h4 { text-align: center; }
+.forged-skills--centered .forged-badges { justify-content: center; }
 
 .btn-play {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -719,7 +709,7 @@ body::before {
 }
 
 /* ================================================
-   QUEST GALLERY — overflow visible pour boutons externes
+   QUEST GALLERY
 ================================================ */
 .quest-gallery {
   position: relative;
@@ -728,13 +718,11 @@ body::before {
   height: 0;
   background: #0a0a0a;
   border-radius: 6px;
-  /* overflow:visible = les boutons peuvent dépasser le bord */
   overflow: visible;
   margin: 1.2rem 0;
   border: 1px solid rgba(255,140,66,0.12);
 }
 
-/* Inner wrapper qui clip vraiment les slides */
 .qgallery-slides {
   position: absolute;
   inset: 0;
@@ -763,10 +751,6 @@ body::before {
 }
 .quest-slide.active img { transform: scale(1.03); }
 
-/* ================================================
-   QGALLERY NAV — boutons semi-transparents sur l'image
-   ↓ SEUL BLOC MODIFIÉ (opacité 0.45 + backdrop-filter)
-================================================ */
 .qgallery-nav {
   position: absolute;
   top: 50%;

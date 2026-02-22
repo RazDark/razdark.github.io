@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Version 2 dark Soul Test</title>
-    <link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -122,7 +111,18 @@
       <p>Je suis quelqu'un qui aime observer, comprendre et partager. Que ce soit en échangeant avec d'autres passionnés, en réfléchissant à une idée ou en m'impliquant dans un projet, j'apprécie tout ce qui permet de créer du lien autour d'une passion commune.</p>
       <p>Au fond, ce qui m'anime est assez simple : participer à des expériences qui rassemblent et qui ont du sens. Que ce soit à travers le jeu vidéo, l'esport ou mes engagements bénévoles comme le <strong>Téléthon Gaming</strong> ou d'autres actions solidaires. J'aime l'idée de pouvoir contribuer, aider et faire partie de projets portés par de belles valeurs.</p>
       <p>Ce portfolio est simplement une façon de partager cette passion et le chemin que je construis autour d'elle.</p>
-      <div class="quest-marker">🎯 En quête d'opportunités dans l'industrie du gaming</div>
+
+      <!-- MOD 3 — Bloc Centres d'intérêt (remplace quest-marker) -->
+      <div class="forged-skills" style="margin-top:1.5rem;">
+        <h4>Centres d'intérêt</h4>
+        <div class="forged-badges">
+          <span class="forged-badge">🎮 Jeux Vidéo</span>
+          <span class="forged-badge">🏆 Esport</span>
+          <span class="forged-badge">📚 Manga</span>
+          <span class="forged-badge">🏓 Tennis de table</span>
+          <span class="forged-badge">🌍 Voyages</span>
+        </div>
+      </div>
 
       <div class="about-cta-row">
         <a class="cta-btn cta-btn--creations" data-screen="games">
@@ -189,7 +189,7 @@
           <div class="forged-skills">
             <h4>Compétences Forgées</h4>
             <div class="forged-badges">
-              <span class="forged-badge"><i class="fas fa-gamepad"></i> Gameplay & Programming</span>
+              <span class="forged-badge"><i class="fas fa-gamepad"></i> Gameplay &amp; Programming</span>
               <span class="forged-badge"><i class="fas fa-gamepad"></i> UI/UX Design</span>
               <span class="forged-badge"><i class="fab fa-unreal-engine"></i> Unreal Engine</span>
               <span class="forged-badge"><i class="fas fa-volume-up"></i> Sound Design</span>
@@ -279,7 +279,7 @@
           <div class="forged-skills">
             <h4>Compétences Forgées</h4>
             <div class="forged-badges">
-              <span class="forged-badge"><i class="fas fa-code"></i> Gameplay & Programming</span>
+              <span class="forged-badge"><i class="fas fa-code"></i> Gameplay &amp; Programming</span>
               <span class="forged-badge"><i class="fab fa-unreal-engine"></i> Unreal Engine</span>
               <span class="forged-badge"><i class="fas fa-paint-brush"></i> UI/UX Design</span>
               <span class="forged-badge"><i class="fas fa-volume-up"></i> Sound Design</span>
@@ -359,7 +359,7 @@
         <div class="quest-marker-dot"></div>
         <div class="quest-date">06/2024 — 12/2024</div>
         <div class="quest-card">
-          <h3 class="quest-title">Community Manager & Social Media Planner</h3>
+          <h3 class="quest-title">Community Manager &amp; Social Media Planner</h3>
           <p class="quest-org">Fédération Française de Jeux Vidéo (FFJV)</p>
           <ul class="quest-tasks">
             <li>Définition des stratégies de publications sur les réseaux sociaux</li>
@@ -374,7 +374,7 @@
         </div>
       </div>
 
-      <!-- QUÊTE 3 : TÉLÉTHON GAMING — patch appliqué : 4 slides, nouvelle image en idx 0 -->
+      <!-- QUÊTE 3 : TÉLÉTHON GAMING -->
       <div class="quest-entry">
         <div class="quest-marker-dot"></div>
         <div class="quest-date">11/2024</div>
@@ -383,7 +383,6 @@
           <p class="quest-org">Téléthon Gaming 2024</p>
           <div class="quest-gallery" id="qgallery-telethon">
             <div class="qgallery-slides">
-              <!-- ✅ Nouvelle image en position 0 (active) -->
               <div class="quest-slide active">
                 <img src="https://i.postimg.cc/SQgxb2Vp/CRB03486-(1).jpg" alt="Téléthon Gaming 2024 – Photo 1">
               </div>
@@ -403,7 +402,6 @@
             <button class="qgallery-nav qgallery-next" data-qgallery="qgallery-telethon" data-dir="1">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
-            <!-- ✅ 4 dots -->
             <div class="qgallery-dots">
               <button class="qgallery-dot active" data-qgallery="qgallery-telethon" data-idx="0"></button>
               <button class="qgallery-dot"        data-qgallery="qgallery-telethon" data-idx="1"></button>
@@ -670,9 +668,4 @@
 <div class="transition-overlay"></div>
   <script src="script.js"></script>
 </body>
-</html>
-    <script  src="./script.js"></script>
-
-  </body>
-  
 </html>
