@@ -30,7 +30,6 @@ function showScreen(screenId, useTransition = true) {
     }
   };
 
-  // MOD 1 — pas de transition overlay si useTransition est false
   if (!overlay || !useTransition) {
     switchScreen();
     return;
@@ -44,29 +43,24 @@ function showScreen(screenId, useTransition = true) {
 }
 
 /* ================================================
-   GALERIE JEUX (game-gallery) — animation slide directionnel
+   FONCTION CENTRALE D'ANIMATION SLIDE (partagée)
 ================================================ */
-
-// Fonction centrale : anime le passage de currentIdx → nextIdx dans une direction
-function _animateGameGallery(gallery, slides, dots, currentIdx, nextIdx, dir) {
+function _animateSlide(slidesContainer, slides, dots, currentIdx, nextIdx, dir) {
   if (nextIdx === currentIdx) return;
 
   const current = slides[currentIdx];
   const next    = slides[nextIdx];
 
-  const fromX = dir >= 0 ? '100%' : '-100%';
-  const toX   = dir >= 0 ? '-100%' : '100%';
+  const fromX  = dir >= 0 ? '100%' : '-100%';
+  const toX    = dir >= 0 ? '-100%' : '100%';
   const easing = 'cubic-bezier(0.4, 0, 0.2, 1)';
   const duration = '0.45s';
 
-  // Positionner le slide entrant hors-écran sans transition
   next.style.cssText = `opacity:1; transform:translateX(${fromX}); transition:none;`;
   next.classList.add('active');
 
-  // Forcer le reflow pour que le navigateur prenne en compte la position initiale
   void next.offsetHeight;
 
-  // Lancer l'animation
   const tr = `transform ${duration} ${easing}, opacity ${duration} ease`;
   next.style.cssText    = `opacity:1; transform:translateX(0); transition:${tr};`;
   current.style.cssText = `opacity:0; transform:translateX(${toX}); transition:${tr};`;
@@ -81,6 +75,9 @@ function _animateGameGallery(gallery, slides, dots, currentIdx, nextIdx, dir) {
   dots[nextIdx]?.classList.add('active');
 }
 
+/* ================================================
+   GALERIE JEUX (game-gallery)
+================================================ */
 function slideGallery(galleryId, dir) {
   const gallery = document.getElementById(galleryId);
   if (!gallery) return;
@@ -91,7 +88,7 @@ function slideGallery(galleryId, dir) {
   if (currentIdx < 0) currentIdx = 0;
 
   const nextIdx = (currentIdx + dir + slides.length) % slides.length;
-  _animateGameGallery(gallery, slides, dots, currentIdx, nextIdx, dir);
+  _animateSlide(gallery, slides, dots, currentIdx, nextIdx, dir);
 }
 
 function goGallery(galleryId, targetIdx) {
@@ -104,11 +101,40 @@ function goGallery(galleryId, targetIdx) {
   if (currentIdx < 0 || currentIdx === targetIdx) return;
 
   const dir = targetIdx > currentIdx ? 1 : -1;
-  _animateGameGallery(gallery, slides, dots, currentIdx, targetIdx, dir);
+  _animateSlide(gallery, slides, dots, currentIdx, targetIdx, dir);
 }
 
 /* ================================================
-   MOD 2 — CARROUSEL AUTOMATIQUE (3 secondes)
+   GALERIE QUÊTES (quest-gallery) — alignée sur le même système
+================================================ */
+function slideQGallery(galleryId, dir) {
+  const gallery = document.getElementById(galleryId);
+  if (!gallery) return;
+
+  const slides = gallery.querySelectorAll('.quest-slide');
+  const dots   = gallery.querySelectorAll('.qgallery-dot');
+  let currentIdx = Array.from(slides).findIndex(s => s.classList.contains('active'));
+  if (currentIdx < 0) currentIdx = 0;
+
+  const nextIdx = (currentIdx + dir + slides.length) % slides.length;
+  _animateSlide(gallery, slides, dots, currentIdx, nextIdx, dir);
+}
+
+function goQGallery(galleryId, targetIdx) {
+  const gallery = document.getElementById(galleryId);
+  if (!gallery) return;
+
+  const slides = gallery.querySelectorAll('.quest-slide');
+  const dots   = gallery.querySelectorAll('.qgallery-dot');
+  const currentIdx = Array.from(slides).findIndex(s => s.classList.contains('active'));
+  if (currentIdx < 0 || currentIdx === targetIdx) return;
+
+  const dir = targetIdx > currentIdx ? 1 : -1;
+  _animateSlide(gallery, slides, dots, currentIdx, targetIdx, dir);
+}
+
+/* ================================================
+   AUTOPLAY (Créations + Quêtes)
 ================================================ */
 const autoplay = {
   timers: {},
@@ -117,7 +143,12 @@ const autoplay = {
     this.stop(galleryId);
     this.timers[galleryId] = setInterval(() => {
       if (!document.hidden) {
-        slideGallery(galleryId, 1);
+        // Détecte si c'est une galerie Quêtes ou Créations
+        if (galleryId.startsWith('qgallery-')) {
+          slideQGallery(galleryId, 1);
+        } else {
+          slideGallery(galleryId, 1);
+        }
       }
     }, interval);
   },
@@ -134,57 +165,24 @@ const autoplay = {
   }
 };
 
-// Démarrage initial des deux carrousels
 function initAutoplay() {
+  // Créations
   autoplay.start('gallery-mad');
   autoplay.start('gallery-sky');
+  // Quêtes
+  autoplay.start('qgallery-cruk');
+  autoplay.start('qgallery-telethon');
 }
 
 // Pause/reprise selon visibilité de la page
 document.addEventListener('visibilitychange', () => {
+  const allGalleries = ['gallery-mad', 'gallery-sky', 'qgallery-cruk', 'qgallery-telethon'];
   if (document.hidden) {
-    autoplay.stop('gallery-mad');
-    autoplay.stop('gallery-sky');
+    allGalleries.forEach(id => autoplay.stop(id));
   } else {
-    autoplay.start('gallery-mad');
-    autoplay.start('gallery-sky');
+    allGalleries.forEach(id => autoplay.start(id));
   }
 });
-
-/* ================================================
-   GALERIE QUÊTES (quest-gallery)
-================================================ */
-function slideQGallery(galleryId, dir) {
-  const gallery = document.getElementById(galleryId);
-  if (!gallery) return;
-
-  const slides = gallery.querySelectorAll('.quest-slide');
-  const dots   = gallery.querySelectorAll('.qgallery-dot');
-  let idx = Array.from(slides).findIndex(s => s.classList.contains('active'));
-  if (idx < 0) idx = 0;
-
-  slides[idx]?.classList.remove('active');
-  dots[idx]?.classList.remove('active');
-
-  idx = (idx + dir + slides.length) % slides.length;
-
-  slides[idx]?.classList.add('active');
-  dots[idx]?.classList.add('active');
-}
-
-function goQGallery(galleryId, idx) {
-  const gallery = document.getElementById(galleryId);
-  if (!gallery) return;
-
-  const slides = gallery.querySelectorAll('.quest-slide');
-  const dots   = gallery.querySelectorAll('.qgallery-dot');
-
-  slides.forEach(s => s.classList.remove('active'));
-  dots.forEach(d   => d.classList.remove('active'));
-
-  slides[idx]?.classList.add('active');
-  dots[idx]?.classList.add('active');
-}
 
 /* ================================================
    COPIER EMAIL DANS LE PRESSE-PAPIERS
@@ -231,23 +229,23 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // 2. Galerie JEUX — prev/next  (MOD 2 : reset timer)
+  // 2. Galerie JEUX — prev/next
   const gameNavBtn = e.target.closest('.game-gallery [data-gallery][data-dir]');
   if (gameNavBtn) {
     e.preventDefault();
     const gid = gameNavBtn.getAttribute('data-gallery');
     slideGallery(gid, parseInt(gameNavBtn.getAttribute('data-dir'), 10));
-    autoplay.reset(gid);   // MOD 2
+    autoplay.reset(gid);
     return;
   }
 
-  // 3. Galerie JEUX — dots  (MOD 2 : reset timer)
+  // 3. Galerie JEUX — dots
   const gameDot = e.target.closest('.game-gallery [data-gallery][data-idx]');
   if (gameDot) {
     e.preventDefault();
     const gid = gameDot.getAttribute('data-gallery');
     goGallery(gid, parseInt(gameDot.getAttribute('data-idx'), 10));
-    autoplay.reset(gid);   // MOD 2
+    autoplay.reset(gid);
     return;
   }
 
@@ -255,10 +253,9 @@ document.addEventListener('click', e => {
   const qNavBtn = e.target.closest('[data-qgallery][data-dir]');
   if (qNavBtn) {
     e.preventDefault();
-    slideQGallery(
-      qNavBtn.getAttribute('data-qgallery'),
-      parseInt(qNavBtn.getAttribute('data-dir'), 10)
-    );
+    const gid = qNavBtn.getAttribute('data-qgallery');
+    slideQGallery(gid, parseInt(qNavBtn.getAttribute('data-dir'), 10));
+    autoplay.reset(gid);
     return;
   }
 
@@ -266,10 +263,9 @@ document.addEventListener('click', e => {
   const qDot = e.target.closest('[data-qgallery][data-idx]');
   if (qDot) {
     e.preventDefault();
-    goQGallery(
-      qDot.getAttribute('data-qgallery'),
-      parseInt(qDot.getAttribute('data-idx'), 10)
-    );
+    const gid = qDot.getAttribute('data-qgallery');
+    goQGallery(gid, parseInt(qDot.getAttribute('data-idx'), 10));
+    autoplay.reset(gid);
     return;
   }
 });
@@ -283,15 +279,14 @@ document.addEventListener('keydown', e => {
 
 /* ================================================
    CHARGEMENT INITIAL
-   MOD 1 — pas de transition overlay au premier chargement
 ================================================ */
 window.addEventListener('load', () => {
   const hash = window.location.hash.replace('#', '');
   if (hash && document.getElementById(hash)) {
-    showScreen(hash, false);   // MOD 1 — sans overlay
+    showScreen(hash, false);
   } else {
-    showScreen('hub', false);  // MOD 1 — sans overlay
+    showScreen('hub', false);
   }
 
-  initAutoplay(); // MOD 2
+  initAutoplay();
 });
