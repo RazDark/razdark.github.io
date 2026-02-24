@@ -6,4 +6,6 @@ Bienvenue sur le dépôt de mon portfolio professionnel.
 
 À propos de ce projet
 Ce site a été conçu avec VS Code et hébergé via GitHub. Il présente mes compétences en :
-* Marketing Digital (KPIs, Acquisition, SEO) * Gestion de projets Gaming / Esport (FFJV, Sekai Emerald) * Développement Web (HTML/CSS, CMS)
+* Marketing Digital (KPIs, Acquisition, SEO)
+* Gestion de projets Gaming / Esport (FFJV, Sekai Emerald) 
+* Développement Web (HTML/CSS, CMS)
