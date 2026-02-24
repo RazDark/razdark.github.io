@@ -1,4 +1,4 @@
-# Merwane Slifi - Portfolio Marketing & Web 
+# Merwane Slifi - Gaming Portfolio & Web Development
 
 Bienvenue sur le dépôt de mon portfolio professionnel.
 
