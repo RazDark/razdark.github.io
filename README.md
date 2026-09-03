@@ -9,5 +9,3 @@ Ce site a été conçu avec VS Code et hébergé via GitHub. Il présente mes co
 * Marketing Digital (KPIs, Acquisition, SEO)
 * Gestion de projets Gaming / Esport (FFJV, Sekai Emerald) 
 * Développement Web (HTML/CSS, CMS)
-
-
