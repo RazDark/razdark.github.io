@@ -10,6 +10,4 @@ Ce site a été conçu avec VS Code et hébergé via GitHub. Il présente mes co
 * Gestion de projets Gaming / Esport (FFJV, Sekai Emerald) 
 * Développement Web (HTML/CSS, CMS)
 
-  
-Contact :
-* LinkedIn : https://www.linkedin.com/in/merwane-s-abbb53270/
+
