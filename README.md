@@ -10,8 +10,3 @@ Ce site a été conçu avec VS Code et hébergé via GitHub. Il présente mes co
 * Gestion de projets Gaming / Esport (FFJV, Sekai Emerald) 
 * Développement Web (HTML/CSS, CMS)
 
-# Version 2 dark Soul Test
-
-A Pen created on CodePen.
-
-Original URL: [https://codepen.io/Merwane/pen/MYeZOyO](https://codepen.io/Merwane/pen/MYeZOyO).
