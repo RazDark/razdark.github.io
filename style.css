@@ -818,11 +818,12 @@ strong { color: var(--ember); font-weight: 700; }
   cursor: pointer;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
-  transition: background 0.2s, color 0.2s;
+  transition: opacity 0.2s, background 0.2s, color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 .gallery-nav.prev { left: 0.5rem; }
 .gallery-nav.next { right: 0.5rem; }
+.gallery-nav:focus-visible { opacity: 1; }
 .gallery-nav:active { background: var(--ember); color: var(--on-ember); }
 
 .gallery-dots {
@@ -1212,7 +1213,7 @@ a.contact-tile:active { transform: translateY(1px); border-color: var(--ember); 
     box-shadow: 0 10px 28px rgba(255, 110, 50, 0.4);
   }
   .cta-btn:not(.cta-btn--creations):hover { background: var(--ember-dim); }
-  .gallery-nav:hover { background: var(--ember); color: var(--on-ember); }
+  .gallery-nav:hover { opacity: 1; background: var(--ember); color: var(--on-ember); }
   a.contact-tile:hover {
     transform: translateY(-3px);
     border-color: var(--ember);
@@ -1305,7 +1306,9 @@ a.contact-tile:active { transform: translateY(1px); border-color: var(--ember); 
 
   .cta-btn { flex: 1 1 100%; max-width: none; }
   .btn-play { width: 100%; }
-  .gallery-nav { width: 40px; height: 40px; }
+  .gallery-nav { width: 40px; height: 40px; opacity: 0.45; }
+  .gallery-nav:active,
+  .gallery-nav:focus-visible { opacity: 1; }
   .gallery-nav.prev { left: 0.35rem; }
   .gallery-nav.next { right: 0.35rem; }
   .soft-stat { flex-wrap: wrap; }
