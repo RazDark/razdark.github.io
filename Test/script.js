@@ -69,6 +69,7 @@
     document.title = TITLES[id] || SITE_TITLE;
     current = id;
     scrollTop();
+    window.dispatchEvent(new Event('portfolio:screenchange'));
 
     // Focus sur le titre de la section (lecteurs d'écran, clavier), sans
     // provoquer de scroll.
@@ -149,6 +150,7 @@
      et glissement tactile. Toute action manuelle relance le délai de 5 s.
      ------------------------------------------------------------------------ */
   var AUTOPLAY_MS = 5000;
+    var gallerySequence = 0;
 
   function initGallery(gallery) {
     var slides = gallery.querySelectorAll('.gallery-slide');
@@ -157,6 +159,10 @@
     var total = slides.length;
     var index = 0;
     var i;
+    var galleryId = 'gallery-' + (++gallerySequence);
+
+    gallery.setAttribute('role', 'region');
+    gallery.setAttribute('aria-roledescription', 'carrousel');
 
     if (total < 2) {
       var navs = gallery.querySelectorAll('.gallery-nav, .gallery-dots');
@@ -165,6 +171,9 @@
     }
 
     for (i = 0; i < slides.length; i++) {
+      slides[i].id = galleryId + '-slide-' + (i + 1);
+      slides[i].setAttribute('role', 'group');
+      slides[i].setAttribute('aria-label', 'Image ' + (i + 1) + ' sur ' + total);
       if (slides[i].classList.contains('active')) index = i;
     }
 
@@ -178,32 +187,50 @@
       for (k = 0; k < dots.length; k++) {
         var on = k === index;
         dots[k].classList.toggle('active', on);
-        dots[k].setAttribute('aria-selected', on ? 'true' : 'false');
         dots[k].setAttribute('role', 'tab');
+        dots[k].setAttribute('aria-selected', on ? 'true' : 'false');
+        dots[k].setAttribute('aria-controls', slides[k] ? slides[k].id : '');
+        dots[k].setAttribute('tabindex', on ? '0' : '-1');
       }
       if (status) status.textContent = 'Image ' + (index + 1) + ' sur ' + total;
     }
 
     // ---- Défilement automatique -------------------------------------------
+    // Un seul minuteur à la fois, uniquement quand cette galerie est visible.
+    // Cela évite de faire travailler toutes les galeries cachées en arrière-plan.
     var timer = null;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var motionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    var reduce = motionQuery && motionQuery.matches;
+    var hovered = false;
+    var focused = false;
+
+    function canAutoPlay() {
+      return !reduce && !hovered && !focused && document.visibilityState !== 'hidden' && gallery.closest('.screen.active');
+    }
 
     function tick() {
-      // N'avance que si l'onglet est visible, la section affichée et
-      // qu'aucun glissement n'est en cours
-      var visible = document.visibilityState !== 'hidden' && gallery.closest('.screen.active');
-      if (visible && !tracking) show(index + 1);
+      timer = null;
+      if (canAutoPlay() && !tracking) show(index + 1);
+      if (canAutoPlay()) scheduleAuto();
     }
     function stopAuto() {
-      if (timer) { window.clearInterval(timer); timer = null; }
+      if (timer) { window.clearTimeout(timer); timer = null; }
+    }
+    function scheduleAuto() {
+      stopAuto();
+      if (canAutoPlay()) {
+        timer = window.setTimeout(tick, AUTOPLAY_MS);
+      }
     }
     function startAuto() {
-      if (reduce) return;
-      stopAuto();
-      timer = window.setInterval(tick, AUTOPLAY_MS);
+      scheduleAuto();
+    }
+    function syncAuto() {
+      if (canAutoPlay()) startAuto();
+      else stopAuto();
     }
     // Interaction manuelle : on affiche, puis on repart pour 5 s complètes
-    function manual(n) { show(n); startAuto(); }
+    function manual(n) { show(n); syncAuto(); }
 
     gallery.addEventListener('click', function (e) {
       var nav = e.target.closest ? e.target.closest('.gallery-nav') : null;
@@ -218,22 +245,54 @@
       else if (e.key === 'ArrowRight') { e.preventDefault(); manual(index + 1); }
     });
 
+    gallery.addEventListener('mouseenter', function () {
+      hovered = true;
+      stopAuto();
+    });
+    gallery.addEventListener('mouseleave', function () {
+      hovered = false;
+      syncAuto();
+    });
+    gallery.addEventListener('focusin', function () {
+      focused = true;
+      stopAuto();
+    });
+    gallery.addEventListener('focusout', function () {
+      window.setTimeout(function () {
+        focused = gallery.contains(document.activeElement);
+        syncAuto();
+      }, 0);
+    });
+
     // Glissement tactile (pointer events → souris, stylet, doigt)
     var startX = 0, startY = 0, tracking = false;
     gallery.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       if (e.target.closest && e.target.closest('button')) return;
       startX = e.clientX; startY = e.clientY; tracking = true;
+      try { gallery.setPointerCapture(e.pointerId); } catch (error) { /* ignore */ }
     });
     gallery.addEventListener('pointerup', function (e) {
       if (!tracking) return;
       tracking = false;
+      try { gallery.releasePointerCapture(e.pointerId); } catch (error) { /* ignore */ }
       var dx = e.clientX - startX, dy = e.clientY - startY;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
         manual(dx < 0 ? index + 1 : index - 1);
       }
     });
-    gallery.addEventListener('pointercancel', function () { tracking = false; });
+    gallery.addEventListener('pointercancel', function (e) {
+      tracking = false;
+      try { gallery.releasePointerCapture(e.pointerId); } catch (error) { /* ignore */ }
+    });
+    if (motionQuery) {
+      var motionChanged = function (e) { reduce = e.matches; syncAuto(); };
+      if (typeof motionQuery.addEventListener === 'function') motionQuery.addEventListener('change', motionChanged);
+      else if (typeof motionQuery.addListener === 'function') motionQuery.addListener(motionChanged);
+    }
+    document.addEventListener('visibilitychange', syncAuto);
+    window.addEventListener('hashchange', syncAuto);
+    window.addEventListener('portfolio:screenchange', syncAuto);
 
     show(index);
     startAuto();
@@ -290,9 +349,9 @@
      ------------------------------------------------------------------------ */
   function init() {
     var galleries = document.querySelectorAll('[data-gallery]');
+    boot();
     for (var i = 0; i < galleries.length; i++) initGallery(galleries[i]);
     initCopyEmail();
-    boot();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
