@@ -8,6 +8,49 @@
 /* --------------------------------------------------------------------------
    1. TOKENS
    -------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/cinzel-400.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/cinzel-700.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('assets/fonts/cinzel-900.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('assets/fonts/lato-300.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/lato-400.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('assets/fonts/lato-700.ttf') format('truetype');
+}
+
 :root {
   --bg: #0a0806;
   --bg-2: #130e0a;
@@ -212,6 +255,7 @@ strong { color: var(--ember); font-weight: 700; }
 /* Scène : sur desktop, un carré où le feu et les 6 nœuds sont superposés */
 .hub-stage {
   position: relative;
+  width: min(520px, 100%, calc(100vh - 260px));
   width: min(520px, 100%, 100dvh - 260px);
   min-width: min(100%, 280px);
   aspect-ratio: 1 / 1;
@@ -402,6 +446,7 @@ strong { color: var(--ember); font-weight: 700; }
 }
 
 .back-btn {
+  position: relative;
   flex: none;
   display: inline-flex;
   align-items: center;
@@ -421,6 +466,11 @@ strong { color: var(--ember); font-weight: 700; }
   background: rgba(255, 140, 66, 0.04);
   transition: background 0.2s, border-color 0.2s;
   -webkit-tap-highlight-color: transparent;
+}
+.back-btn::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
 }
 .back-btn:active { background: var(--ember-dim); border-color: var(--ember); }
 
@@ -479,7 +529,7 @@ strong { color: var(--ember); font-weight: 700; }
   text-shadow: 0 0 20px rgba(255, 140, 66, 0.35);
   text-wrap: balance;
 }
-.page-title:focus { outline: none; }
+.page-title:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
 .page-title::after {
   content: "";
   display: block;

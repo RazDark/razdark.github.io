@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0a0806">
   <meta name="description" content="Portfolio de Merwane Slifi — Game Developer, Marketing Gaming & Esport. Créations, quêtes accomplies, compétences et contact.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://i.postimg.cc data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
   <title>Merwane Slifi — Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="assets/icons/all.min.css">
+  <link rel="stylesheet" href="style.css?v=20260924">
 
   <noscript>
     <style>
@@ -22,7 +20,9 @@
 </head>
 <body>
 
-  <a class="skip-link" href="#accueil">Aller au contenu</a>
+  <a class="skip-link" href="#portfolio-content">Aller au contenu</a>
+
+  <main id="portfolio-content">
 
   <!-- ============================================================
        ACCUEIL — Le Feu (hub)
@@ -189,7 +189,7 @@
           <h3 class="tree-header"><i class="fas fa-laptop-code" aria-hidden="true"></i> Compétences Techniques</h3>
 
           <div class="tech-node">
-            <div class="tech-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" alt="" loading="lazy" decoding="async"></div>
+            <div class="tech-icon"><img src="assets/images/skills/canva.svg" alt="" loading="lazy" decoding="async"></div>
             <div class="tech-info">
               <div class="tech-name">Canva</div>
               <div class="tech-bar" role="img" aria-label="Canva : 90 %"><div class="tech-fill" style="--fill:90%"></div></div>
@@ -210,7 +210,7 @@
           </div>
 
           <div class="tech-node">
-            <div class="tech-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" alt="" loading="lazy" decoding="async"></div>
+            <div class="tech-icon"><img src="assets/images/skills/wordpress.svg" alt="" loading="lazy" decoding="async"></div>
             <div class="tech-info">
               <div class="tech-name">WordPress</div>
               <div class="tech-bar" role="img" aria-label="WordPress : 70 %"><div class="tech-fill" style="--fill:70%"></div></div>
@@ -218,7 +218,7 @@
           </div>
 
           <div class="tech-node">
-            <div class="tech-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg" alt="" loading="lazy" decoding="async"></div>
+            <div class="tech-icon"><img src="assets/images/skills/unrealengine.svg" alt="" loading="lazy" decoding="async"></div>
             <div class="tech-info">
               <div class="tech-name">Unreal Engine</div>
               <div class="tech-bar" role="img" aria-label="Unreal Engine : 65 %"><div class="tech-fill" style="--fill:65%"></div></div>
@@ -234,7 +234,7 @@
           </div>
 
           <div class="tech-node">
-            <div class="tech-icon"><img src="https://www.vectorlogo.zone/logos/hubspot/hubspot-icon.svg" alt="" loading="lazy" decoding="async"></div>
+            <div class="tech-icon"><img src="assets/images/skills/hubspot.svg" alt="" loading="lazy" decoding="async"></div>
             <div class="tech-info">
               <div class="tech-name">HubSpot</div>
               <div class="tech-bar" role="img" aria-label="HubSpot : 40 %"><div class="tech-fill" style="--fill:40%"></div></div>
@@ -323,10 +323,10 @@
         <div class="game-media-col">
           <div class="gallery gallery--game" data-gallery aria-roledescription="carrousel" aria-label="Captures de The Mad Scientist">
             <div class="gallery-track">
-              <div class="gallery-slide active"><img src="https://i.postimg.cc/nzBgmzvb/t-Rc-Pp6.png" alt="The Mad Scientist - Cover" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/Qtp0ggDW/EPby0d.png" alt="Screenshot 1" loading="lazy" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/rmL9pd48/Arf-Lz0.png" alt="Screenshot 2" loading="lazy" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/HxCtLJMY/MRy-HYo.png" alt="Screenshot 3" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide active"><img src="assets/images/gallery/mad-cover.png" alt="The Mad Scientist - Cover" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/mad-1.png" alt="Screenshot 1" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/mad-2.png" alt="Screenshot 2" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/mad-3.png" alt="Screenshot 3" loading="lazy" decoding="async"></div>
             </div>
             <button type="button" class="gallery-nav prev" data-dir="-1" aria-label="Image précédente">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -353,7 +353,7 @@
                 <span class="forged-badge"><i class="fas fa-volume-up" aria-hidden="true"></i> Sound Design</span>
               </div>
             </div>
-            <a href="https://razdark.itch.io/" target="_blank" rel="noopener" class="btn-play">
+            <a href="https://razdark.itch.io/" target="_blank" rel="noopener noreferrer" class="btn-play">
               <span>Jouer sur Itch.io</span>
               <i class="fas fa-external-link-alt" aria-hidden="true"></i>
             </a>
@@ -407,10 +407,10 @@
         <div class="game-media-col">
           <div class="gallery gallery--game" data-gallery aria-roledescription="carrousel" aria-label="Captures de Sky Platform: Kill Zone">
             <div class="gallery-track">
-              <div class="gallery-slide active"><img src="https://i.postimg.cc/SsDzpj7L/Capture-d-ecran-2026-02-10-215746.png" alt="Screenshot 1" loading="lazy" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/x8B80mkm/Capture-d-ecran-2026-02-10-215527.png" alt="Screenshot 2" loading="lazy" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/8cxc1vF6/Capture-d-ecran-2026-02-10-215816.png" alt="Screenshot 3" loading="lazy" decoding="async"></div>
-              <div class="gallery-slide"><img src="https://i.postimg.cc/d3g3qC7T/Capture-d-ecran-2026-02-10-215929.png" alt="Screenshot 4" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide active"><img src="assets/images/gallery/sky-1.png" alt="Screenshot 1" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/sky-2.png" alt="Screenshot 2" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/sky-3.png" alt="Screenshot 3" loading="lazy" decoding="async"></div>
+              <div class="gallery-slide"><img src="assets/images/gallery/sky-4.png" alt="Screenshot 4" loading="lazy" decoding="async"></div>
             </div>
             <button type="button" class="gallery-nav prev" data-dir="-1" aria-label="Image précédente">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -437,7 +437,7 @@
                 <span class="forged-badge"><i class="fas fa-volume-up" aria-hidden="true"></i> Sound Design</span>
               </div>
             </div>
-            <a href="https://razdark.itch.io/" target="_blank" rel="noopener" class="btn-play">
+            <a href="https://razdark.itch.io/" target="_blank" rel="noopener noreferrer" class="btn-play">
               <span>Jouer sur Itch.io</span>
               <i class="fas fa-external-link-alt" aria-hidden="true"></i>
             </a>
@@ -648,7 +648,7 @@
           <span class="copy-status" aria-live="polite"></span>
         </div>
 
-        <a href="https://www.linkedin.com/in/merwane-s-abbb53270/" target="_blank" rel="noopener" class="contact-tile">
+        <a href="https://www.linkedin.com/in/merwane-s-abbb53270/" target="_blank" rel="noopener noreferrer" class="contact-tile">
           <div class="contact-tile-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="54" height="54" fill="#ff8c42">
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -659,7 +659,7 @@
           <span class="tile-hint"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Ouvrir le profil</span>
         </a>
 
-        <a href="https://razdark.itch.io/" target="_blank" rel="noopener" class="contact-tile">
+        <a href="https://razdark.itch.io/" target="_blank" rel="noopener noreferrer" class="contact-tile">
           <div class="contact-tile-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 245.371 220.736" width="54" height="54" fill="#ff8c42">
               <path d="M31.99 1.365C21.287 7.589.2 31.907 0 38.13v10.337c0 13.08 12.16 24.541 23.096 24.541 13.327 0 24.491-11.215 24.491-24.491 0 13.276 10.894 24.491 24.222 24.491 13.327 0 23.93-11.215 23.93-24.491 0 13.276 11.447 24.491 24.775 24.491h.28c13.328 0 24.775-11.215 24.775-24.491 0 13.276 10.604 24.491 23.93 24.491 13.327 0 24.222-11.215 24.222-24.491 0 13.276 11.164 24.491 24.491 24.491 10.935 0 23.095-11.46 23.095-24.541V38.13c-.2-6.223-21.287-30.541-31.99-36.765C180.04.012 95.83-.04 31.99 1.365zm96.04 61.185c-3.893 0-7.545-1.02-10.64-2.73-3.094 1.71-6.747 2.73-10.64 2.73-5.456 0-10.446-1.953-14.246-5.078-3.8 3.125-8.79 5.078-14.245 5.078-10.637 0-19.3-8.516-19.3-19.021v-3.862h14.81v3.862c0 2.415 2.02 4.376 4.49 4.376 2.47 0 4.49-1.96 4.49-4.376v-3.862h14.81v3.862c0 2.415 2.02 4.376 4.49 4.376 2.47 0 4.49-1.96 4.49-4.376v-3.862h14.81v3.862c0 2.415 2.02 4.376 4.49 4.376 2.47 0 4.49-1.96 4.49-4.376v-3.862h14.81v3.862c0 10.505-8.662 19.021-19.3 19.021zm-78.12 48.463h138.88v92.54H49.91v-92.54zm14.84 13.955v64.63h109.2v-64.63H64.75zm14.84 13.955h79.52v36.72H79.59v-36.72z"/>
@@ -677,6 +677,7 @@
       <p>&copy; 2026 Merwane Slifi — <span>Forgé avec passion 🎮</span></p>
     </footer>
   </section>
+  </main>
 
   <!-- STATUS BAR -->
   <div class="status-bar" aria-hidden="true">
@@ -696,6 +697,6 @@
 
   <div class="transition-overlay" aria-hidden="true"></div>
 
-  <script src="script.js?v=5" defer></script>
+  <script src="script.js?v=20260924" defer></script>
 </body>
 </html>
