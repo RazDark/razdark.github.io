@@ -591,6 +591,7 @@ strong { color: var(--ember); font-weight: 700; }
 .about-panel p:last-of-type { margin-bottom: 0; }
 .about-interests { margin-top: 1.6rem; }
 
+.forged-skills h3,
 .forged-skills h4 {
   margin: 0 0 0.6rem;
   font-family: var(--font-title);
